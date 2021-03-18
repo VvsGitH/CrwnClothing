@@ -1,0 +1,68 @@
+.menu-item {
+	min-width: 30%;
+	height: 240px;
+	// Faccio prendere ad ogni elemento tutto lo spazio disponibile. Questa proprietà si riferisce al flexbox 'directory'
+	flex: 1 1 auto;
+	// Utilizzo un flexbox anche per menu-item solo come metodo comodo per centrare l'elemento content all'interno di esso
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: 1px solid black;
+	margin: 0 7.5px 15px;
+	/* Voglio che background-image sia al di sotto di content e si ingrandisca al passaggio del mouse senza strabordare.
+    1. Imposto la position come relative in modo da poter mettere la position di content come absolute
+    2. Imposto l'overflow come hidden in modo che le parti in eccesso dell'immagine durante l'ingrandimento vengano nascoste automaticamente */
+	position: relative;
+	overflow: hidden;
+
+	// Se l'elemento con classe 'menu-item' contiene anche la classe 'large' imposto un'altezza superiore
+	&.large {
+		height: 380px;
+	}
+
+	.background-image {
+		width: 100%;
+		height: 100%;
+		background-position: center;
+		background-size: cover;
+	}
+
+	.content {
+		height: 90px;
+		padding: 0 25px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		border: 1px solid black;
+		background-color: white;
+		opacity: 0.7;
+		position: absolute; // In questo modo 'content' si posizionerà al di sopra di 'background-image'
+
+		.title {
+			font-weight: bold;
+			margin-top: 0;
+			margin-bottom: 6px;
+			font-size: 22px;
+			color: #4a4a4a;
+		}
+
+		.subtitle {
+			font-weight: lighter;
+			font-size: 16px;
+		}
+	}
+
+	&:hover {
+		cursor: pointer;
+
+		.background-image {
+			transform: scale(1.1);
+			transition: transform 6s cubic-bezier(0.25, 0.45, 0.45, 0.95);
+		}
+
+		.content {
+			opacity: 0.9;
+		}
+	}
+}
