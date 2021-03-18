@@ -1,4 +1,6 @@
 import React from "react";
+import { withRouter } from "react-router-dom";
+
 import "./menu-item.style.scss";
 
 /*
@@ -7,8 +9,10 @@ E' possibile aggiungere l'immagine di sfondo direttamente al container principal
 Dunque, per ottenere quell'effetto, è stato necessario posizionare l'immagine in un div interno, fratello di 'content' e poi gestire la cosa in css
 */
 
-const MenuItem = ({ title, imageUrl, size }) => (
-	<div className={`menu-item ${size}`}>
+const MenuItem = ({ title, imageUrl, size, linkUrl, history, match }) => (
+	<div
+		className={`menu-item ${size}`}
+		onClick={() => history.push(`${match.url}${linkUrl}`)}>
 		<div
 			className='background-image'
 			style={{ backgroundImage: `url(${imageUrl})` }}
@@ -20,4 +24,4 @@ const MenuItem = ({ title, imageUrl, size }) => (
 	</div>
 );
 
-export default MenuItem;
+export default withRouter(MenuItem);
