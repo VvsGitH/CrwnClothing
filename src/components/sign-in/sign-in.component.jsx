@@ -1,5 +1,5 @@
 import React from 'react';
-import { signInWithGoogle } from '../../firebase/firebase.utils';
+import { auth, signInWithGoogle } from '../../firebase/firebase.utils';
 
 import './sign-in.style.scss';
 
@@ -16,16 +16,26 @@ class SignIn extends React.Component {
 		};
 	}
 
-	handleSubmit = event => {
+	// Questa funzione si interfaccia con l'API di autenticazione di Firebase per far fare o meno login all'utente
+	handleSubmit = async event => {
 		event.preventDefault();
+		try {
+			// Provo a fare login con i dati contenuti nei form
+			const { email, password } = this.state;
+			await auth.signInWithEmailAndPassword(email, password);
 
-		this.setState({ email: '', password: '' });
+			// Svuoto i campi del form. Questa riga viene eseguita solo se la riga precente è terminata senza errore!
+			this.setState({ email: '', password: '' });
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
+	/* Questa funzione aggiorna continuamente lo stato in base al contenuto dei form.
+	event.target.name contiene il nome del form; event.target.value contiene la stringa digitata nel form
+	Inserisco dunque la stringa 'value' nello stato che si chiama 'name' */
 	handleChange = event => {
-		// 'name' contiene il nome dell'elemento che sta cambiando, cioè email o password; 'value' contiene il contenuto di tale elemento, cioè ciò che sta digitando l'utente -> non so quanto è sicuro questo approccio
 		const { value, name } = event.target;
-		// Questo codice significa: inserisci 'value' all'interno dello stato che si chiama 'name'
 		this.setState({ [name]: value });
 	};
 
@@ -53,7 +63,10 @@ class SignIn extends React.Component {
 					/>
 					<div className='buttons'>
 						<CustomButton type='submit'>Submit Form </CustomButton>
-						<CustomButton onClick={signInWithGoogle} isGoogleSignIn={true}>
+						<CustomButton
+							type='button'
+							onClick={signInWithGoogle}
+							isGoogleSignIn={true}>
 							Sign in with Google{' '}
 						</CustomButton>
 					</div>

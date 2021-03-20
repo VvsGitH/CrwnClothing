@@ -25,5 +25,32 @@ export const signInWithGoogle = () => auth.signInWithPopup(provider);
 // Database
 export const firestore = firebase.firestore();
 
+export const createUserProfileDocument = async (userAuth, additionalData) => {
+	// Se l'utente non riesce ad autenticarsi con Google
+	if (!userAuth) return;
+
+	// Se riesce a fare log-in, invio una query al database
+	const userRef = firestore.doc('users/' + userAuth.uid);
+	const snapShot = await userRef.get();
+
+	// Se l'utente non esiste sul db, creo una nuova entry
+	if (!snapShot.exists) {
+		const { displayName, email } = userAuth;
+		const createAt = new Date();
+		try {
+			await userRef.set({
+				displayName,
+				email,
+				createAt,
+				...additionalData,
+			});
+		} catch (error) {
+			console.log('error creating user', error.message);
+		}
+	}
+
+	return userRef;
+};
+
 // In case we need all library
 export default firebase;
