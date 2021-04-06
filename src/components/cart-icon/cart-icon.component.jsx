@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { toggleCartHiddenAction } from '../../redux/cart/cart.actions';
+import { selectCartItemsCount } from '../../redux/cart/cart.selectors';
 
 import './cart-icon.style.scss';
 
@@ -13,13 +14,10 @@ const CartIcon = ({ toggleCartHidden, itemCount }) => (
 	</div>
 );
 
-// Questo è un selector: prende lo stato e ne estrae una piccola porzione
+// Tutte le funzioni che prendono lo stato nello Store e ne estraggono una piccola porzione sono dette selectors.
 // Utilizzo questo selector per aggiorare il numero di elementi nell'icona del carrello
 const mapStateToProps = state => ({
-	itemCount: state.cart.cartItems.reduce(
-		(accumulator, cartItem) => accumulator + cartItem.quantity,
-		0
-	),
+	itemCount: selectCartItemsCount(state),
 });
 
 const mapDispatchToProps = dispatch => ({
