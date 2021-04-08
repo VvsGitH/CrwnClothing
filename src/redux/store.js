@@ -4,8 +4,14 @@ import { persistStore } from 'redux-persist'; // Persistor
 
 import rootReducer from './root-reducer';
 
+// CONFIGURO I MIDDLEWARES
+const middlewares = [];
+//  voglio logger solo in development e non in production
+if (process.env.NODE_ENV === 'development') {
+	middlewares.push(logger);
+}
+
 // CREO LO STORE
-const middlewares = [logger];
 export const store = createStore(rootReducer, applyMiddleware(...middlewares));
 
 // REDUX-PERSIST
