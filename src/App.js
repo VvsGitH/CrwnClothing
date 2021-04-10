@@ -15,6 +15,7 @@ import CheckoutPage from './pages/checkout/checkout.component';
 class App extends React.Component {
 	// ------------------- AUTHENTICATION ------------------- //
 	unsubscribeFromAuth = null;
+	unsubscribeFromDb = null;
 
 	componentDidMount() {
 		/* auth.onAuthStateChanged() apre una connessione persistente con firebase che invocherà la funzione di callback ogni volta che cambierà lo stato di autenticazione: utente fa log-in, log-out, fallisce il log-in
@@ -26,7 +27,7 @@ class App extends React.Component {
 				const userRef = await createUserProfileDocument(userAuth);
 
 				// onSnapshot() restituisce uno snapshot aggiornato di userRef. Viene chiamata la prima volta e poi ogni volta che il database rileva una modifica su userRef
-				userRef.onSnapshot(snapshot => {
+				this.unsubscribeFromDb = userRef.onSnapshot(snapshot => {
 					// Utilizzo lo snapshot per creare lo stato utente
 					this.props.setCurrentUser({
 						id: snapshot.id,
@@ -36,6 +37,7 @@ class App extends React.Component {
 			} else {
 				// Se l'utente ha fatto log-out o non è riuscito a fare log-in, setta lo stato a null
 				this.props.setCurrentUser(userAuth);
+				this.unsubscribeFromDb && this.unsubscribeFromDb();
 			}
 		});
 	}
@@ -43,6 +45,7 @@ class App extends React.Component {
 	componentWillUnmount() {
 		// Chiudo la connessione
 		this.unsubscribeFromAuth();
+		this.unsubscribeFromDb && this.unsubscribeFromDb();
 	}
 
 	// ------------------- RENDER METHOD ------------------- //
