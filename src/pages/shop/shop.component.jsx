@@ -1,11 +1,8 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
-import {
-	firestore,
-	convertCollectionsSnapshotToMap,
-} from '../../firebase/firebase.utils';
-import { updateCollectionsAction } from '../../redux/shop/shop.actions';
+
+import { fecthCollectionsStartAsync } from '../../redux/shop/shop.actions';
 
 import CollectionsOverview from '../../components/collections-overview/collections-overview.component';
 import CollectionPage from '../collection/collection.component';
@@ -15,48 +12,25 @@ const CollectionsOverviewWithSpinner = WithSpinner(CollectionsOverview);
 const CollectionPageWithSpinner = WithSpinner(CollectionPage);
 
 class ShopPage extends React.Component {
-	// Short state definition
-	state = {
-		loading: true,
-	};
-
-	unsubFromFirestore = null;
-
 	componentDidMount() {
-		const collectionRef = firestore.collection('collections');
-		this.unsubFromFirestore = collectionRef.onSnapshot(snapshot => {
-			this.setState({ loading: true });
-			const collectionsMap = convertCollectionsSnapshotToMap(snapshot);
-			this.props.updateCollections(collectionsMap);
-			this.setState({ loading: false });
-		});
-	}
-
-	componentWillUnmount() {
-		this.unsubFromFirestore();
+		this.props.fetchCollections();
 	}
 
 	render() {
-		const { match } = this.props;
+		const { match, isFetching } = this.props;
 		return (
 			<div className='shop-page'>
 				<Route
 					exact
 					path={`${match.path}`}
 					render={props => (
-						<CollectionsOverviewWithSpinner
-							isLoading={this.state.loading}
-							{...props}
-						/>
+						<CollectionsOverviewWithSpinner isLoading={isFetching} {...props} />
 					)}
 				/>
 				<Route
 					path={`${match.path}/:collectionId`}
 					render={props => (
-						<CollectionPageWithSpinner
-							isLoading={this.state.loading}
-							{...props}
-						/>
+						<CollectionPageWithSpinner isLoading={isFetching} {...props} />
 					)}
 				/>
 			</div>
@@ -76,9 +50,12 @@ NOTA2: ShopPage rimarrà montata anche durante il rendering di CollectionOvervie
 Usare i parametri url è un modo elegante per gestire una situazione in cui ho tante pagine uguali tra loro in struttura e stile, ma che variano in base al loro contenuto. Il modo alternativo, più semplice ma meno elegante, sarebbe stato quello di definire manualmente una route per ogni collezione.
 */
 
-const mapDispatchToProps = dispatch => ({
-	updateCollections: collectionsMap =>
-		dispatch(updateCollectionsAction(collectionsMap)),
+const mapStateToProps = state => ({
+	isFetching: state.shop.isFetching,
 });
 
-export default connect(null, mapDispatchToProps)(ShopPage);
+const mapDispatchToProps = dispatch => ({
+	fetchCollections: () => dispatch(fecthCollectionsStartAsync()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ShopPage);
