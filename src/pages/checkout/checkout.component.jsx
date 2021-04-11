@@ -1,6 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { selectCartTotal } from '../../redux/cart/cart.selectors';
+import {
+	selectCartTotal,
+	selectCartItems,
+} from '../../redux/cart/cart.selectors';
 
 import './checkout.style.scss';
 
@@ -45,7 +48,7 @@ const CheckoutPage = ({ cartItems, total }) => (
 );
 
 const mapStateToProps = state => ({
-	cartItems: state.cart.cartItems,
+	cartItems: selectCartItems(state),
 	total: selectCartTotal(state),
 });
 

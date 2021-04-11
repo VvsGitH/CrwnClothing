@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { selectDirectorySections } from '../../redux/directory/directory.selectors';
 
 import './directory-style.scss';
 
@@ -14,7 +15,7 @@ const Directory = ({ sections }) => (
 );
 
 const mapStateToProps = state => ({
-	sections: state.directory.sections,
+	sections: selectDirectorySections(state),
 });
 
 export default connect(mapStateToProps)(Directory);

@@ -1,11 +1,12 @@
 import { compose } from 'redux';
 import { connect } from 'react-redux';
+import { selectShopIsFetching } from '../../redux/shop/shop.selectors';
 
 import CollectionsOverview from './collections-overview.component';
 import WithSpinner from '../with-spinner/with-spinner.component';
 
 const mapStateToProps = state => ({
-	isLoading: state.shop.isFetching,
+	isLoading: selectShopIsFetching(state),
 });
 
 const CollectionsOverviewContainer = compose(

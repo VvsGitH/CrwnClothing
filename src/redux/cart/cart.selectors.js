@@ -2,7 +2,8 @@ import { createSelector } from 'reselect';
 
 // INPUT SELECTORS
 // Semplici funzioni che restituiscono una parte dello stato in Store
-const selectCartItems = state => state.cart.cartItems;
+export const selectCartHidden = state => state.cart.hidden;
+export const selectCartItems = state => state.cart.cartItems;
 
 // OUTPUT SELECTORS -> MEMOIZED SELECTORS
 export const selectCartItemsCount = createSelector(

@@ -1,5 +1,7 @@
 import { createSelector } from 'reselect';
 
+export const selectShopIsFetching = state => state.shop.isFetching;
+
 // Estrae una singola collezione da SHOP_DATA in base al parametro url
 // L'oggetto collections viene caricato da Firestore. Le sue chiavi corrispondono ai titoli delle collezioni.
 // collectionUrlParam deriva invece dal campo linkUrl di src/redux/directory/sections.data.js

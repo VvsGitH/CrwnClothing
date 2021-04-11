@@ -1,7 +1,7 @@
-import React from "react";
-import { withRouter } from "react-router-dom";
+import React from 'react';
+import { withRouter } from 'react-router-dom';
 
-import "./menu-item.style.scss";
+import './menu-item.style.scss';
 
 /*
 NOTA: Gestione dell'immagine di sfondo

@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { toggleCartHiddenAction } from '../../redux/cart/cart.actions';
+import { selectCartItems } from '../../redux/cart/cart.selectors';
 
 import './cart-dropdown.style.scss';
 
@@ -30,7 +31,7 @@ const CartDropdown = ({ cartItems, history, dispatch }) => (
 );
 
 const mapStateToProps = state => ({
-	cartItems: state.cart.cartItems,
+	cartItems: selectCartItems(state),
 });
 
 export default withRouter(connect(mapStateToProps)(CartDropdown));
