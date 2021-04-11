@@ -4,12 +4,8 @@ import { connect } from 'react-redux';
 
 import { fecthCollectionsStartAsync } from '../../redux/shop/shop.actions';
 
-import CollectionsOverview from '../../components/collections-overview/collections-overview.component';
-import CollectionPage from '../collection/collection.component';
-import WithSpinner from '../../components/with-spinner/with-spinner.component';
-
-const CollectionsOverviewWithSpinner = WithSpinner(CollectionsOverview);
-const CollectionPageWithSpinner = WithSpinner(CollectionPage);
+import CollectionsOverviewContainer from '../../components/collections-overview/collections-overview.container';
+import CollectionContainer from '../collection/collection.container';
 
 class ShopPage extends React.Component {
 	componentDidMount() {
@@ -17,21 +13,18 @@ class ShopPage extends React.Component {
 	}
 
 	render() {
-		const { match, isFetching } = this.props;
+		const { match } = this.props;
 		return (
 			<div className='shop-page'>
 				<Route
 					exact
 					path={`${match.path}`}
-					render={props => (
-						<CollectionsOverviewWithSpinner isLoading={isFetching} {...props} />
-					)}
+					component={CollectionsOverviewContainer}
 				/>
 				<Route
+					exact
 					path={`${match.path}/:collectionId`}
-					render={props => (
-						<CollectionPageWithSpinner isLoading={isFetching} {...props} />
-					)}
+					component={CollectionContainer}
 				/>
 			</div>
 		);
@@ -50,12 +43,8 @@ NOTA2: ShopPage rimarrà montata anche durante il rendering di CollectionOvervie
 Usare i parametri url è un modo elegante per gestire una situazione in cui ho tante pagine uguali tra loro in struttura e stile, ma che variano in base al loro contenuto. Il modo alternativo, più semplice ma meno elegante, sarebbe stato quello di definire manualmente una route per ogni collezione.
 */
 
-const mapStateToProps = state => ({
-	isFetching: state.shop.isFetching,
-});
-
 const mapDispatchToProps = dispatch => ({
 	fetchCollections: () => dispatch(fecthCollectionsStartAsync()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ShopPage);
+export default connect(null, mapDispatchToProps)(ShopPage);
