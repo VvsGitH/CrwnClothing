@@ -2,7 +2,7 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { fecthCollectionsStartAsync } from '../../redux/shop/shop.actions';
+import { fetchCollectionsStart } from '../../redux/shop/shop.actions';
 
 import CollectionsOverviewContainer from '../../components/collections-overview/collections-overview.container';
 import CollectionContainer from '../collection/collection.container';
@@ -44,7 +44,7 @@ Usare i parametri url è un modo elegante per gestire una situazione in cui ho t
 */
 
 const mapDispatchToProps = dispatch => ({
-	fetchCollections: () => dispatch(fecthCollectionsStartAsync()),
+	fetchCollections: () => dispatch(fetchCollectionsStart()),
 });
 
 export default connect(null, mapDispatchToProps)(ShopPage);
