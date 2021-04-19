@@ -1,9 +1,8 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router';
 import { connect } from 'react-redux';
-import { auth, createUserProfileDocument } from './firebase/firebase.utils';
-import { setCurrentUserAction } from './redux/user/user.actions';
 import { selectCurrentUser } from './redux/user/user.selectors';
+import { checkUserSesson } from './redux/user/user.actions';
 
 import './App.css';
 
@@ -14,42 +13,14 @@ import Header from './components/header/header.component';
 import CheckoutPage from './pages/checkout/checkout.component';
 
 class App extends React.Component {
-	// ------------------- AUTHENTICATION ------------------- //
-	unsubscribeFromAuth = null;
-	unsubscribeFromDb = null;
-
 	componentDidMount() {
-		/* auth.onAuthStateChanged() apre una connessione persistente con firebase che invocherà la funzione di callback ogni volta che cambierà lo stato di autenticazione: utente fa log-in, log-out, fallisce il log-in
-		auth.onAuthStateChanged() restituisce una funzione che ci permetterà di chiudere la connessione */
-		this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
-			// Se l'utente ha fatto log-in
-			if (userAuth) {
-				// Cerco l'utente nel database e lo aggiungo se non è presente
-				const userRef = await createUserProfileDocument(userAuth);
-
-				// onSnapshot() restituisce uno snapshot aggiornato di userRef. Viene chiamata la prima volta e poi ogni volta che il database rileva una modifica su userRef
-				this.unsubscribeFromDb = userRef.onSnapshot(snapshot => {
-					// Utilizzo lo snapshot per creare lo stato utente
-					this.props.setCurrentUser({
-						id: snapshot.id,
-						...snapshot.data(),
-					});
-				});
-			} else {
-				// Se l'utente ha fatto log-out o non è riuscito a fare log-in, setta lo stato a null
-				this.props.setCurrentUser(userAuth);
-				this.unsubscribeFromDb && this.unsubscribeFromDb();
-			}
-		});
+		// Firebase conserva l'autenticazione dell'utente tra le sessioni
+		// Tuttavia lo stato user nello Store si resetta ogni volta che l'app viene refreshata
+		// Uso una action per verificare lo stato di autenticazione ogni volta che App viene montata e cioè dopo ogni refresh del browser.
+		// Se l'utente è ancora autenticato in Firebase, lo stato user verrà aggiornato con i suoi dati.
+		this.props.checkUserSesson();
 	}
 
-	componentWillUnmount() {
-		// Chiudo la connessione
-		this.unsubscribeFromAuth();
-		this.unsubscribeFromDb && this.unsubscribeFromDb();
-	}
-
-	// ------------------- RENDER METHOD ------------------- //
 	render() {
 		return (
 			<div className='App'>
@@ -74,7 +45,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-	setCurrentUser: user => dispatch(setCurrentUserAction(user)),
+	checkUserSesson: () => dispatch(checkUserSesson()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

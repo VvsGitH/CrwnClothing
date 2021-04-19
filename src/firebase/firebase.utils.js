@@ -17,10 +17,9 @@ firebase.initializeApp(config);
 // Autentication
 export const auth = firebase.auth();
 
-// Google autentication
-const provider = new firebase.auth.GoogleAuthProvider();
-provider.setCustomParameters({ prompt: 'select_account' });
-export const signInWithGoogle = () => auth.signInWithPopup(provider);
+// Google Provider
+export const googleProvider = new firebase.auth.GoogleAuthProvider();
+googleProvider.setCustomParameters({ prompt: 'select_account' });
 
 // Database
 export const firestore = firebase.firestore();
@@ -54,6 +53,19 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 	}
 
 	return userRef;
+};
+
+// Utility: verificare se l'utente è connesso
+// L'unico modo per verificare se una sessione utente è ancora attiva è iscriversi al auth state listener, ricevere lo userAuth aggiornato e poi disiscriversi.
+// auth.currentUser non funziona dopo un refresh del browser
+// NOTA: restituisco una Promise in modo da poter fare il yield nella saga
+export const getCurrentUser = () => {
+	return new Promise((resolve, reject) => {
+		const unsubscribe = auth.onAuthStateChanged(userAuth => {
+			unsubscribe();
+			resolve(userAuth);
+		}, reject);
+	});
 };
 
 // Utility: aggiungere al db un'intera collection con multipli documenti
