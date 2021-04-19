@@ -1,5 +1,6 @@
 import React from 'react';
-import { auth, createUserProfileDocument } from '../../firebase/firebase.utils';
+import { connect } from 'react-redux';
+import { signUpStart } from '../../redux/user/user.actions';
 
 import './sign-up.style.scss';
 
@@ -29,26 +30,8 @@ class SignUp extends React.Component {
 			return;
 		}
 
-		try {
-			// Uso l'API di autenticazione di Firebase per tentare la registrazione del nuovo utente
-			const { user } = await auth.createUserWithEmailAndPassword(
-				email,
-				password
-			);
-
-			// Se tutto va bene, aggiungo il nuovo utente anche nel database. NOTA: newUser contiene solo email e UID, quindi aggiungo anche il nome
-			await createUserProfileDocument(user, { displayName });
-
-			// Se tutto va bene, pulisco i campi del form
-			this.setState({
-				displayName: '',
-				email: '',
-				password: '',
-				confirmPassword: '',
-			});
-		} catch (error) {
-			console.error(error);
-		}
+		// Redux action che triggera una redux saga
+		this.props.signUp({ email, password, displayName });
 	};
 
 	// Carico costantemente nello stato i valori inseriti nei form
@@ -103,4 +86,8 @@ class SignUp extends React.Component {
 	}
 }
 
-export default SignUp;
+const mapDispatchToProps = dispatch => ({
+	signUp: userCredentials => dispatch(signUpStart(userCredentials)),
+});
+
+export default connect(null, mapDispatchToProps)(SignUp);
