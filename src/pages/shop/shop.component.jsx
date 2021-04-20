@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -7,29 +7,27 @@ import { fetchCollectionsStart } from '../../redux/shop/shop.actions';
 import CollectionsOverviewContainer from '../../components/collections-overview/collections-overview.container';
 import CollectionContainer from '../collection/collection.container';
 
-class ShopPage extends React.Component {
-	componentDidMount() {
-		this.props.fetchCollections();
-	}
+const ShopPage = ({ match, fetchCollections }) => {
+	// NOTA: devo passare fetchCollections come dipendenza in useEffect perchè React lo vede come un prop, anche se noi sappiamo che è una funzione costante.
+	useEffect(() => {
+		fetchCollections();
+	}, [fetchCollections]);
 
-	render() {
-		const { match } = this.props;
-		return (
-			<div className='shop-page'>
-				<Route
-					exact
-					path={`${match.path}`}
-					component={CollectionsOverviewContainer}
-				/>
-				<Route
-					exact
-					path={`${match.path}/:collectionId`}
-					component={CollectionContainer}
-				/>
-			</div>
-		);
-	}
-}
+	return (
+		<div className='shop-page'>
+			<Route
+				exact
+				path={`${match.path}`}
+				component={CollectionsOverviewContainer}
+			/>
+			<Route
+				exact
+				path={`${match.path}/:collectionId`}
+				component={CollectionContainer}
+			/>
+		</div>
+	);
+};
 
 /*
 Uso ShopPage solo per fare il routing tra la pagina di preview e le varie pagine dedicate alle singole collezioni.
