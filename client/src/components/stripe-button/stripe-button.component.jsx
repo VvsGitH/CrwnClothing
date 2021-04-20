@@ -1,16 +1,40 @@
 import React from 'react';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { clearCartAction } from '../../redux/cart/cart.actions';
+
 import StripeCheckout from 'react-stripe-checkout';
 
 const StripeCheckoutButton = ({ price }) => {
+	// Uso un redux hook dato che devo fare il dispatch di una sola action
+	const dispatch = useDispatch();
+
 	// Stripe richiede il prezzo in centesimi
 	const priceForStripe = price * 100;
 	const publishableKey =
 		'pk_test_51IdzPmIUjLpE2nbZ3A6ht7ocAmBfypAXGg3v4JIZQNRq8pcaLeviscqWa3YxzpdNQN0A4XOpaPhmhyBB7x52kkKh00U3kcdfFh';
 
-	// Il token serve ad interagire con il backend. In questo caso non processiamo un vero pagamento e quindi ci limitiamo a loggarlo
+	// Invio al backend il token ed il costo della transazione.
+	// Ricevo dal backend il risultato dell'operazione.
+	// Se il pagamento è riuscito rimuovo tutti gli elementi dal carrello.
 	const onToken = token => {
-		console.log(token);
-		alert('Payment Successful');
+		axios({
+			url: 'payment',
+			method: 'post',
+			data: {
+				amount: priceForStripe,
+				token,
+			},
+		})
+			.then(response => {
+				console.log('Payment response: ', response);
+				alert('Payment successful.');
+				dispatch(clearCartAction());
+			})
+			.catch(error => {
+				console.log('Payment error: ', error);
+				alert('There was an issue with your payment.');
+			});
 	};
 
 	return (
@@ -19,8 +43,9 @@ const StripeCheckoutButton = ({ price }) => {
 			name='CRWN Clothing Ltd.'
 			billingAddress
 			shippingAddress
-			description={'Your total is €' + price}
 			amount={priceForStripe}
+			currency='EUR'
+			description={'Your total is €' + price}
 			panelLabel='Pay Now'
 			token={onToken}
 			stripeKey={publishableKey}
