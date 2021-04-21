@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { signUpStart } from '../../redux/user/user.actions';
+import { signUpAsync } from '../../redux/user/user.actions';
 
 import './sign-up.style.scss';
 
@@ -27,7 +27,7 @@ const SignUp = ({ signUp }) => {
 			return;
 		}
 
-		// Redux action che triggera una redux saga
+		// Uso una Redux action asincrona
 		signUp({ email, password, displayName });
 	};
 
@@ -81,7 +81,7 @@ const SignUp = ({ signUp }) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-	signUp: userCredentials => dispatch(signUpStart(userCredentials)),
+	signUp: userCredentials => dispatch(signUpAsync(userCredentials)),
 });
 
 export default connect(null, mapDispatchToProps)(SignUp);

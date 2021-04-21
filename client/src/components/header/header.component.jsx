@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
-import { signOutStart } from '../../redux/user/user.actions';
+import { signOutAsync } from '../../redux/user/user.actions';
 import { selectCartHidden } from '../../redux/cart/cart.selectors';
 
 import './header.style.scss';
@@ -11,7 +11,7 @@ import { ReactComponent as Logo } from '../../assets/crown.svg';
 import CartIcon from '../cart-icon/cart-icon.component';
 import CartDropdown from '../cart-dropdown/cart-dropdown.component';
 
-const Header = ({ currentUser, isCartHidden, signOutStart }) => (
+const Header = ({ currentUser, isCartHidden, signOut }) => (
 	<div className='header'>
 		<Link className='logo-container' to='/'>
 			<Logo />
@@ -24,7 +24,7 @@ const Header = ({ currentUser, isCartHidden, signOutStart }) => (
 				CONTACT
 			</Link>
 			{currentUser ? (
-				<div className='option' onClick={signOutStart}>
+				<div className='option' onClick={signOut}>
 					SIGN OUT
 				</div>
 			) : (
@@ -44,7 +44,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-	signOutStart: () => dispatch(signOutStart()),
+	signOut: () => dispatch(signOutAsync()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

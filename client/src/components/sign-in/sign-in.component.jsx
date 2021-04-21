@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import {
-	googleSignInStart,
-	emailSignInStart,
+	signInWithEmailAsync,
+	signInWithGoogleAsync,
 } from '../../redux/user/user.actions';
 
 import './sign-in.style.scss';
@@ -10,18 +10,17 @@ import './sign-in.style.scss';
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
 
-const SignIn = ({ emailSignInStart, googleSignInStart }) => {
+const SignIn = ({ signInWithGoogle, signInWithEmail }) => {
 	const [userCredentials, setCredentials] = useState({
 		email: '',
 		password: '',
 	});
 
-	// Al submit del form invio una action che avvia la procedura di sign-in gestita da una redux-saga
+	// Al submit del form invio una action che gestisce la procedura asincrona di signIn
 	// Faccio la stessa cosa con il sign-in with google, direttamente nel JSX
 	const handleSubmit = async event => {
 		event.preventDefault();
-		const { email, password } = userCredentials;
-		emailSignInStart(email, password);
+		signInWithEmail(userCredentials);
 	};
 
 	/* Questa funzione aggiorna continuamente lo stato in base al contenuto dei form.
@@ -57,7 +56,7 @@ const SignIn = ({ emailSignInStart, googleSignInStart }) => {
 					<CustomButton type='submit'>Sign In</CustomButton>
 					<CustomButton
 						type='button'
-						onClick={googleSignInStart}
+						onClick={signInWithGoogle}
 						isGoogleSignIn={true}>
 						Sign in with Google
 					</CustomButton>
@@ -68,9 +67,9 @@ const SignIn = ({ emailSignInStart, googleSignInStart }) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-	googleSignInStart: () => dispatch(googleSignInStart()),
-	emailSignInStart: (email, password) =>
-		dispatch(emailSignInStart({ email, password })),
+	signInWithGoogle: () => dispatch(signInWithGoogleAsync()),
+	signInWithEmail: emailAndPassword =>
+		dispatch(signInWithEmailAsync(emailAndPassword)),
 });
 
 export default connect(null, mapDispatchToProps)(SignIn);
