@@ -1,41 +1,39 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
 import { signOutStart } from '../../redux/user/user.actions';
 import { selectCartHidden } from '../../redux/cart/cart.selectors';
 
-import './header.style.scss';
+import {
+	HeaderStyle,
+	LogoStyle,
+	OptionsStyle,
+	OptionLinkStyle,
+} from './header.style';
 
 import { ReactComponent as Logo } from '../../assets/crown.svg';
 import CartIcon from '../cart-icon/cart-icon.component';
 import CartDropdown from '../cart-dropdown/cart-dropdown.component';
 
 const Header = ({ currentUser, isCartHidden, signOutStart }) => (
-	<div className='header'>
-		<Link className='logo-container' to='/'>
+	<HeaderStyle>
+		<LogoStyle to='/'>
 			<Logo />
-		</Link>
-		<nav className='options'>
-			<Link className='option' to='/shop'>
-				SHOP
-			</Link>
-			<Link className='option' to='/contact'>
-				CONTACT
-			</Link>
+		</LogoStyle>
+		<OptionsStyle>
+			<OptionLinkStyle to='/shop'>SHOP</OptionLinkStyle>
+			<OptionLinkStyle to='/contact'>CONTACT</OptionLinkStyle>
 			{currentUser ? (
-				<div className='option' onClick={signOutStart}>
+				<OptionLinkStyle as='div' onClick={signOutStart}>
 					SIGN OUT
-				</div>
+				</OptionLinkStyle>
 			) : (
-				<Link className='option' to='/signin'>
-					SIGN IN
-				</Link>
+				<OptionLinkStyle to='/signin'>SIGN IN</OptionLinkStyle>
 			)}
 			<CartIcon />
-		</nav>
+		</OptionsStyle>
 		{isCartHidden ? null : <CartDropdown />}
-	</div>
+	</HeaderStyle>
 );
 
 const mapStateToProps = state => ({

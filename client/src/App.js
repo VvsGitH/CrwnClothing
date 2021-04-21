@@ -4,8 +4,7 @@ import { connect } from 'react-redux';
 import { selectCurrentUser } from './redux/user/user.selectors';
 import { checkUserSession } from './redux/user/user.actions';
 
-import './App.css';
-
+import GlobalStyle from './global.style';
 import HomePage from './pages/homepage/homepage.component';
 import ShopPage from './pages/shop/shop.component';
 import SignPage from './pages/sign-page/sign-page.component';
@@ -22,7 +21,8 @@ const App = ({ currentUser, checkUserSession }) => {
 	}, [checkUserSession]);
 
 	return (
-		<div className='App'>
+		<div>
+			<GlobalStyle />
 			<Header />
 			<Route exact path='/' component={HomePage} />
 			<Route path='/shop' component={ShopPage} />
