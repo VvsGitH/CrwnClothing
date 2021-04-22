@@ -1,6 +1,7 @@
 .collection-page {
 	display: flex;
 	flex-direction: column;
+	align-items: center;
 
 	.title {
 		font-size: 38px;
@@ -8,12 +9,17 @@
 	}
 
 	.items {
+		width: 90%;
 		display: grid;
 		grid-template-columns: 1fr 1fr 1fr 1fr;
 		grid-gap: 5% 3%;
 
 		& .collection-item {
 			width: 100%;
+		}
+
+		@media screen and (max-width: 800px) {
+			grid-template-columns: 1fr 1fr;
 		}
 	}
 }

@@ -3,4 +3,16 @@
 	display: flex;
 	justify-content: space-between;
 	margin: 30px auto;
+
+	@media screen and (max-width: 920px) {
+		width: 100%;
+	}
+
+	@media screen and (max-width: 865px) {
+		width: 90%;
+		display: grid;
+		grid-template-columns: 100%;
+		grid-template-rows: fit-content fit-content;
+		row-gap: 80px;
+	}
 }
