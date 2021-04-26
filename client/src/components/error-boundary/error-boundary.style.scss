@@ -1,0 +1,25 @@
+.error-boundary {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	.error-image {
+		display: inline-block;
+		width: 50vh;
+		height: 50vh;
+	}
+
+	.error-msg {
+		font-size: 28px;
+		color: #2f8e89;
+	}
+
+	.error-details {
+		padding: 0 15%;
+		white-space: 'pre-wrap';
+		text-align: center;
+		color: #2f8e89;
+	}
+}

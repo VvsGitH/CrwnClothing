@@ -1,16 +1,19 @@
-import React, { useEffect } from 'react';
-import { Route, Redirect } from 'react-router';
+import React, { useEffect, lazy, Suspense } from 'react';
+import { Route, Switch, Redirect } from 'react-router';
 import { connect } from 'react-redux';
 import { selectCurrentUser } from './redux/user/user.selectors';
 import { checkUserSession } from './redux/user/user.actions';
 
 import './App.scss';
 
-import HomePage from './pages/homepage/homepage.component';
-import ShopPage from './pages/shop/shop.component';
-import SignPage from './pages/sign-page/sign-page.component';
 import Header from './components/header/header.component';
-import CheckoutPage from './pages/checkout/checkout.component';
+import Spinner from './components/spinner/spinner.component';
+import ErrorBoundary from './components/error-boundary/error-boundary.component';
+
+const HomePage = lazy(() => import('./pages/homepage/homepage.component'));
+const ShopPage = lazy(() => import('./pages/shop/shop.component'));
+const SignPage = lazy(() => import('./pages/sign-page/sign-page.component'));
+const CheckoutPage = lazy(() => import('./pages/checkout/checkout.component'));
 
 const App = ({ currentUser, checkUserSession }) => {
 	// Firebase conserva l'autenticazione dell'utente tra le sessioni
@@ -24,14 +27,21 @@ const App = ({ currentUser, checkUserSession }) => {
 	return (
 		<div className='App'>
 			<Header />
-			<Route exact path='/' component={HomePage} />
-			<Route path='/shop' component={ShopPage} />
-			<Route exact path='/checkout' component={CheckoutPage} />
-			<Route
-				exact
-				path='/signin'
-				render={() => (currentUser ? <Redirect to='/' /> : <SignPage />)}
-			/>
+			<ErrorBoundary>
+				<Suspense fallback={<Spinner />}>
+					<Switch>
+						<Route exact path='/' component={HomePage} />
+						<Route path='/shop' component={ShopPage} />
+						<Route exact path='/checkout' component={CheckoutPage} />
+						<Route
+							exact
+							path='/signin'
+							render={() => (currentUser ? <Redirect to='/' /> : <SignPage />)}
+						/>
+						<Route render={() => <h2>404 Not Found</h2>} />
+					</Switch>
+				</Suspense>
+			</ErrorBoundary>
 		</div>
 	);
 };

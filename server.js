@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const compression = require('compression');
 
 // Posso accedere alla secret key solo in dev e test!
 // In production, la chiave segreta sarà passata dal servizio di hosting
@@ -13,9 +14,12 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 // Converto tutte le richieste in json in automatico
-// E controllo che non ci siano caratteri invalidi per un url
+// Controllo che non ci siano caratteri invalidi per un url
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Imposto la compressione dei chunk js
+app.use(compression());
 
 // Server: port 5000
 // FrontEnd: port 3000
@@ -26,7 +30,7 @@ app.use(cors());
 if (process.env.NODE_ENV === 'production') {
 	app.use(express.static(path.join(__dirname, 'client/build')));
 
-	app.get('*', (_, res) => {
+	app.get('*', (_req, res) => {
 		res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 	});
 }

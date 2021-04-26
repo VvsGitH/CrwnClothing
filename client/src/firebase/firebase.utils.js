@@ -24,9 +24,6 @@ googleProvider.setCustomParameters({ prompt: 'select_account' });
 // Database
 export const firestore = firebase.firestore();
 
-// In case we need all library
-export default firebase;
-
 // Utility: aggiungere nuovo utente al db
 export const createUserProfileDocument = async (userAuth, additionalData) => {
 	// Se l'utente non riesce ad autenticarsi con Google

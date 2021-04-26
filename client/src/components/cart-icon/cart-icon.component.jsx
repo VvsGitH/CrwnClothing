@@ -5,11 +5,12 @@ import { selectCartItemsCount } from '../../redux/cart/cart.selectors';
 
 import './cart-icon.style.scss';
 
-import { ReactComponent as ShoppingIcon } from '../../assets/shopping-bag.svg';
+// Se importassi il file svg come componente, esso verrebbe rirenderizzato ogni volta che viene rirenderizzao CartIcon, anche se cambia solo itemCount.
+import ShoppingIcon from '../../assets/shopping-bag.svg';
 
 const CartIcon = ({ toggleCartHidden, itemCount }) => (
 	<div className='cart-icon' onClick={toggleCartHidden}>
-		<ShoppingIcon className='shopping-icon' />
+		<img src={ShoppingIcon} alt='Cart Icon' className='shopping-icon' />
 		<span className='item-count'>{itemCount}</span>
 	</div>
 );
