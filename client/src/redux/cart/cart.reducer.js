@@ -3,7 +3,9 @@ import { addItemToCart, removeItemFromCart } from './cart.utils';
 
 const INITIAL_STATE = {
 	hidden: true,
+	isFetching: false,
 	cartItems: [],
+	dbError: null,
 };
 
 const cartReducer = (state = INITIAL_STATE, action) => {
@@ -23,7 +25,7 @@ const cartReducer = (state = INITIAL_STATE, action) => {
 				...state,
 				cartItems: removeItemFromCart(state.cartItems, action.payload),
 			};
-		case CartActionTypes.CLEAR_ITEM_FROM_CART:
+		case CartActionTypes.CLEAR_ITEM:
 			return {
 				...state,
 				cartItems: state.cartItems.filter(
@@ -34,6 +36,35 @@ const cartReducer = (state = INITIAL_STATE, action) => {
 			return {
 				...state,
 				cartItems: [],
+			};
+		case CartActionTypes.FETCH_CART_START:
+			return {
+				...state,
+				isFetching: true,
+			};
+		case CartActionTypes.FETCH_CART_SUCCESS:
+			return {
+				...state,
+				isFetching: false,
+				cartItems: action.payload,
+				dbError: null,
+			};
+		case CartActionTypes.FETCH_CART_FAILURE:
+			return {
+				...state,
+				isFetching: false,
+				cartItems: [],
+				dbError: action.payload,
+			};
+		case CartActionTypes.UPDATE_DB_CART_SUCCESS:
+			return {
+				...state,
+				dbError: null,
+			};
+		case CartActionTypes.UPDATE_DB_CART_FAILURE:
+			return {
+				...state,
+				dbError: action.payload,
 			};
 		default:
 			return state;

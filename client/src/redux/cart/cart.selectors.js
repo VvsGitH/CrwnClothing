@@ -3,6 +3,8 @@ import { createSelector } from 'reselect';
 // INPUT SELECTORS
 // Semplici funzioni che restituiscono una parte dello stato in Store
 export const selectCartHidden = state => state.cart.hidden;
+export const selectCartIsFetching = state => state.cart.isFetching;
+export const selectCartDbError = state => state.cart.dbError;
 export const selectCartItems = state => state.cart.cartItems;
 
 // OUTPUT SELECTORS -> MEMOIZED SELECTORS
