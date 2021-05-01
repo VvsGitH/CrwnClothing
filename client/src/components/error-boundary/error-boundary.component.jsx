@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 
 import './error-boundary.style.scss';
 
@@ -13,19 +14,36 @@ class ErrorBoundary extends React.Component {
 		};
 	}
 
-	// Viene chiamata durante la fase di render quando un componente figlio incorre in un errore
-	// E' comunemente usata per settare uno stato di errore, grazie al quale si renderizza una pagina fallback
+	// Viene chiamata durante la fase di render quando un componente figlio
+	//  incorre in un errore.
+	// E' comunemente usata per settare uno stato di errore, grazie al quale
+	//  si renderizza una pagina fallback
 	static getDerivedStateFromError(_error) {
 		return { hasError: true };
 	}
 
-	// E' simile al metodo precedente ma viene chiamato in ritardo e permette dunque di eseguire dei side-effects come ad esempio il logging dell'errore.
-	// Riceve anche un oggetto info che contiene maggiori informazioni sull'errore.
+	// E' simile al metodo precedente ma viene chiamato in ritardo e
+	//  permette dunque di eseguire dei side-effects come ad esempio il
+	//  logging dell'errore.
+	// Riceve anche un oggetto info che contiene maggiori informazioni
+	//  sull'errore.
 	componentDidCatch(error, errorInfo) {
 		this.setState({
 			error,
 			errorInfo,
 		});
+	}
+
+	// Utilizzo il prop location passato da withRouter per pulire lo stato
+	//  di errore quando l'utente clicca su un'altra pagina.
+	componentDidUpdate(prevProps) {
+		if (this.props.location !== prevProps.location) {
+			this.setState({
+				hasError: false,
+				error: null,
+				errorInfo: null,
+			});
+		}
 	}
 
 	// Uso lo stato hasError per renderizzare una fallback in caso di errore
@@ -54,4 +72,4 @@ class ErrorBoundary extends React.Component {
 	}
 }
 
-export default ErrorBoundary;
+export default withRouter(ErrorBoundary);
