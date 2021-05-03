@@ -16,7 +16,9 @@
 	display: flex;
 	justify-content: center;
 
-	&:hover {
+	&:hover,
+	&:focus {
+		outline: none;
 		background-color: white;
 		color: black;
 	}
@@ -26,8 +28,10 @@
 		border: 1px solid #4285f4;
 		color: white;
 
-		&:hover {
-			background-color: #0e60e6;
+		&:hover,
+		&:focus {
+			background-color: white;
+			color: #4285f4;
 		}
 	}
 
@@ -35,7 +39,8 @@
 		background-color: white;
 		color: black;
 
-		&:hover {
+		&:hover,
+		&:focus {
 			background-color: black;
 			color: white;
 		}

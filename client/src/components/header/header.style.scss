@@ -5,6 +5,8 @@
 	justify-content: space-between;
 	margin-bottom: 25px;
 
+	border-bottom: 2px solid hsl(0, 0%, 80%);
+
 	@media screen and (max-width: 800px) {
 		height: 60px;
 		padding: 10px;
@@ -16,10 +18,17 @@
 		//width: 70px;
 		//padding: 25px;
 		margin: auto 0;
+		transition: transform 0.2s linear;
 
 		@media screen and (max-width: 800px) {
 			//width: 50px;
 			//padding: 0;
+		}
+
+		&:hover,
+		&:focus {
+			outline: none;
+			transform: scale(1.2, 1.2);
 		}
 	}
 
@@ -37,6 +46,13 @@
 		.option {
 			padding: 10px 15px;
 			cursor: pointer;
+			transition: transform 0.2s linear;
+
+			&:hover,
+			&:focus {
+				outline: none;
+				transform: scale(1.2, 1.2);
+			}
 		}
 	}
 }

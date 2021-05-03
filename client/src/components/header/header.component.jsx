@@ -24,7 +24,12 @@ const Header = ({ currentUser, isCartHidden, signOutStart }) => (
 				CONTACT
 			</Link>
 			{currentUser ? (
-				<div className='option' onClick={signOutStart}>
+				<div
+					className='option'
+					role='button'
+					tabIndex='0'
+					onClick={signOutStart}
+					onKeyUp={e => e.code === 'Enter' && signOutStart()}>
 					SIGN OUT
 				</div>
 			) : (

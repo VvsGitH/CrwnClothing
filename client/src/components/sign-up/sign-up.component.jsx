@@ -44,6 +44,7 @@ const SignUp = ({ signUp }) => {
 			<form className='sign-up-form' onSubmit={handleSubmit}>
 				<FormInput
 					type='text'
+					id='sign-up-disp-name'
 					name='displayName'
 					value={displayName}
 					onChange={handleChange}
@@ -52,6 +53,7 @@ const SignUp = ({ signUp }) => {
 				/>
 				<FormInput
 					type='email'
+					id='sign-up-email'
 					name='email'
 					value={email}
 					onChange={handleChange}
@@ -60,6 +62,7 @@ const SignUp = ({ signUp }) => {
 				/>
 				<FormInput
 					type='password'
+					id='sign-up-pass'
 					name='password'
 					value={password}
 					onChange={handleChange}
@@ -68,6 +71,7 @@ const SignUp = ({ signUp }) => {
 				/>
 				<FormInput
 					type='password'
+					id='sign-up-conf-pass'
 					name='confirmPassword'
 					value={confirmPassword}
 					onChange={handleChange}

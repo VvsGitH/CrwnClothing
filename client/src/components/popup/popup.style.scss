@@ -74,6 +74,7 @@
 
 			&:hover,
 			&:focus {
+				outline: none;
 				background-color: whitesmoke;
 				color: var(--success-color);
 			}
@@ -96,6 +97,7 @@
 
 			&:hover,
 			&:focus {
+				outline: none;
 				background-color: whitesmoke;
 				color: var(--fail-color);
 			}

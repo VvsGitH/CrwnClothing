@@ -6,6 +6,13 @@
 	align-items: center;
 	justify-content: center;
 	cursor: pointer;
+	transition: transform 0.3s linear;
+
+	&:hover,
+	&:focus {
+		outline: none;
+		transform: scale(1.3, 1.3);
+	}
 
 	.shopping-icon {
 		width: 24px;

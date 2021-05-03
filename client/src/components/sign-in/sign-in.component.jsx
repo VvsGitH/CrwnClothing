@@ -39,6 +39,7 @@ const SignIn = ({ emailSignInStart, googleSignInStart }) => {
 			<form onSubmit={handleSubmit}>
 				<FormInput
 					type='email'
+					id='sign-in-email'
 					name='email'
 					value={userCredentials.email}
 					required
@@ -47,6 +48,7 @@ const SignIn = ({ emailSignInStart, googleSignInStart }) => {
 				/>
 				<FormInput
 					type='password'
+					id='sign-in-pass'
 					name='password'
 					value={userCredentials.password}
 					required

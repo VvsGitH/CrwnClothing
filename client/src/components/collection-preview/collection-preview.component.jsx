@@ -1,17 +1,15 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 
 import './collection-preview.style.scss';
 
 import CollectionItem from '../collection-item/collection-item.component';
 
-const CollectionPreview = ({ title, items, routeName, history, match }) => (
+const CollectionPreview = ({ title, items, routeName, match }) => (
 	<div className='collection-preview'>
-		<h1
-			className='title'
-			onClick={() => history.push(`${match.url}/${routeName}`)}>
+		<Link className='title' to={`${match.url}/${routeName}`}>
 			{title.toUpperCase()}
-		</h1>
+		</Link>
 		<div className='preview'>
 			{items
 				.filter((_, idx) => idx < 4)

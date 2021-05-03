@@ -20,8 +20,10 @@
 		height: 380px;
 	}
 
-	&:hover {
+	&:hover,
+	&:focus {
 		cursor: pointer;
+		outline: none;
 
 		.background-image {
 			transform: scale(1.1);

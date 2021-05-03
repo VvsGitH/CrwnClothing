@@ -9,7 +9,7 @@ import CustomButton from '../custom-button/custom-button.component';
 const CollectionItem = ({ item, addItem }) => {
 	const { name, price, imageUrl } = item;
 	return (
-		<div className='collection-item'>
+		<div className='collection-item' role='gridcell' tabIndex='0'>
 			<div
 				className='image'
 				style={{
@@ -18,7 +18,7 @@ const CollectionItem = ({ item, addItem }) => {
 			/>
 			<div className='collection-footer'>
 				<span className='name'>{name}</span>
-				<span className='price'>€{price}</span>
+				<span className='price'>{`€${price}`}</span>
 			</div>
 			<CustomButton inverted onClick={() => addItem(item)}>
 				Add to cart

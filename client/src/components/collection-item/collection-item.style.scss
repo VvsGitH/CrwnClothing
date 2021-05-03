@@ -6,29 +6,21 @@
 	align-items: center;
 	position: relative;
 
-	&:hover {
+	&:hover,
+	&:focus {
+		outline: none;
+
 		.image {
 			opacity: 0.8;
 		}
 
 		.custom-button {
 			opacity: 0.8;
-			display: flex;
 		}
 	}
 
 	@media screen and (max-width: 800px) {
 		width: 100%;
-
-		&:hover {
-			.image {
-				opacity: unset;
-			}
-
-			.custom-button {
-				opacity: unset;
-			}
-		}
 	}
 
 	.image {
@@ -37,6 +29,7 @@
 		background-size: cover;
 		background-position: center;
 		margin-bottom: 5px;
+		transition: opacity 0.3s linear;
 	}
 
 	.collection-footer {
@@ -58,14 +51,17 @@
 
 	.custom-button {
 		width: 80%;
-		opacity: 0.7;
 		position: absolute;
 		top: 255px;
-		display: none;
+		opacity: 0;
+		transition: opacity 0.3s linear;
+
+		&:focus {
+			opacity: 1;
+		}
 
 		@media screen and (max-width: 800px) {
-			display: block;
-			opacity: 0.9;
+			opacity: 0.8;
 			min-width: unset;
 			padding: 0 10px;
 		}

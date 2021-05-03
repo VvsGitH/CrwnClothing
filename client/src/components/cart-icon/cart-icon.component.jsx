@@ -9,7 +9,12 @@ import './cart-icon.style.scss';
 import ShoppingIcon from '../../assets/shopping-bag.svg';
 
 const CartIcon = ({ toggleCartHidden, itemCount }) => (
-	<div className='cart-icon' onClick={toggleCartHidden}>
+	<div
+		className='cart-icon'
+		role='button'
+		tabIndex='0'
+		onClick={toggleCartHidden}
+		onKeyUp={e => e.code === 'Enter' && toggleCartHidden()}>
 		<img src={ShoppingIcon} alt='Cart Icon' className='shopping-icon' />
 		<span className='item-count'>{itemCount}</span>
 	</div>

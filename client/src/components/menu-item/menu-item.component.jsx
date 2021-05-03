@@ -12,7 +12,10 @@ Dunque, per ottenere quell'effetto, è stato necessario posizionare l'immagine i
 const MenuItem = ({ title, imageUrl, size, linkUrl, history, match }) => (
 	<div
 		className={`menu-item ${size}`}
-		onClick={() => history.push(`${match.url}${linkUrl}`)}>
+		role='link'
+		tabIndex='0'
+		onClick={() => history.push(`${match.url}${linkUrl}`)}
+		onKeyUp={e => e.code === 'Enter' && history.push(`${match.url}${linkUrl}`)}>
 		<div
 			className='background-image'
 			style={{ backgroundImage: `url(${imageUrl})` }}
@@ -23,5 +26,9 @@ const MenuItem = ({ title, imageUrl, size, linkUrl, history, match }) => (
 		</div>
 	</div>
 );
+
+MenuItem.defaultProps = {
+	size: '',
+};
 
 export default withRouter(MenuItem);

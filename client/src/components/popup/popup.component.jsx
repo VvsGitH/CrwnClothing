@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { useTransition, animated } from '@react-spring/web';
 
@@ -13,6 +13,7 @@ const Popup = () => {
 		shallowEqual
 	);
 	const dispatch = useDispatch();
+	const btnRef = useRef();
 
 	// Uso useEffect per aggiungere un listener a window che individua i
 	//  click del mouse e nasconde il popup se è visibile.
@@ -21,14 +22,17 @@ const Popup = () => {
 	//  click fatto dall'utente.
 
 	useEffect(() => {
-		console.log('###### POPUP EFFECT ######');
-
 		const closePopup = () => !isHidden && dispatch(hidePopup());
 
 		window.addEventListener('click', closePopup);
 
 		return () => window.removeEventListener('click', closePopup);
 	}, [isHidden, dispatch]);
+
+	// Quando il Popup appare, imposto il focus sul pulsante OK
+	// Utile per gli utenti che usano la tastiera.
+
+	useEffect(() => !isHidden && btnRef.current.focus(), [isHidden]);
 
 	// Creo le animazioni di compasa/scomparsa del Popup.
 
@@ -61,7 +65,9 @@ const Popup = () => {
 					<h2 className='popup-title'>{popupTitle}</h2>
 				</div>
 				<p className='popup-message'>{message}</p>
-				<button className='popup-btn'>OK</button>
+				<button className='popup-btn' ref={btnRef}>
+					OK
+				</button>
 			</div>
 		</animated.div>
 	);
