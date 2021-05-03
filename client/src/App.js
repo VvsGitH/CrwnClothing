@@ -1,14 +1,17 @@
 import React, { useEffect, lazy, Suspense } from 'react';
 import { Route, Switch, Redirect } from 'react-router';
 import { connect } from 'react-redux';
+
 import { selectCurrentUser } from './redux/user/user.selectors';
 import { checkUserSession } from './redux/user/user.actions';
 
 import './App.scss';
 
 import Header from './components/header/header.component';
+import Popup from './components/popup/popup.component';
 import Spinner from './components/spinner/spinner.component';
 import ErrorBoundary from './components/error-boundary/error-boundary.component';
+import ErrorPage from './pages/error-page/error-page.component';
 
 const HomePage = lazy(() => import('./pages/homepage/homepage.component'));
 const ShopPage = lazy(() => import('./pages/shop/shop.component'));
@@ -27,6 +30,7 @@ const App = ({ currentUser, checkUserSession }) => {
 	return (
 		<div className='App'>
 			<Header />
+			<Popup />
 			<ErrorBoundary>
 				<Suspense fallback={<Spinner />}>
 					<Switch>
@@ -38,7 +42,14 @@ const App = ({ currentUser, checkUserSession }) => {
 							path='/signin'
 							render={() => (currentUser ? <Redirect to='/' /> : <SignPage />)}
 						/>
-						<Route render={() => <h2>404 Not Found</h2>} />
+						<Route
+							render={() => (
+								<ErrorPage
+									errorImage='https://i.imgur.com/Q2BAOd2.png'
+									errorMsg='This Page is Not on the Map'
+								/>
+							)}
+						/>
 					</Switch>
 				</Suspense>
 			</ErrorBoundary>

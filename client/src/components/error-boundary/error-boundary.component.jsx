@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 
-import './error-boundary.style.scss';
+import ErrorPage from '../../pages/error-page/error-page.component';
 
 class ErrorBoundary extends React.Component {
 	constructor() {
@@ -51,19 +51,14 @@ class ErrorBoundary extends React.Component {
 		// Pagina di errore
 		if (this.state.hasError) {
 			return (
-				<div className='error-boundary'>
-					<img
-						className='error-image'
-						src='https://i.imgur.com/yW2W9SC.png'
-						alt='error'
-					/>
-					<h2 className='error-msg'>Sorry this page is broken</h2>
-					<details className='error-details'>
-						{this.state.error && this.state.error.toString()}
-						<br />
-						{this.state.errorInfo && this.state.errorInfo.componentStack}
-					</details>
-				</div>
+				<ErrorPage
+					errorImage={'https://i.imgur.com/yW2W9SC.png'}
+					errorMsg={'Sorry this page is broken'}
+					errorName={this.state.error ? this.state.error.toString() : null}
+					errorInfo={
+						this.state.errorInfo ? this.state.errorInfo.componentStack : null
+					}
+				/>
 			);
 		}
 

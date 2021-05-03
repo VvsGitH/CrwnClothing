@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { clearCartAction } from '../../redux/cart/cart.actions';
+import { createPopup } from '../../redux/popup/popup.actions';
 
 import StripeCheckout from 'react-stripe-checkout';
 
@@ -28,12 +29,12 @@ const StripeCheckoutButton = ({ price }) => {
 		})
 			.then(response => {
 				console.log('Payment response: ', response);
-				alert('Payment successful.');
+				dispatch(createPopup(true, 'Payment successful'));
 				dispatch(clearCartAction());
 			})
 			.catch(error => {
 				console.log('Payment error: ', error);
-				alert('There was an issue with your payment.');
+				dispatch(createPopup(false, 'There was an issue with your payment'));
 			});
 	};
 
