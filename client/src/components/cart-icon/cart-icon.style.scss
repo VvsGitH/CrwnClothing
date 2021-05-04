@@ -5,7 +5,6 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	cursor: pointer;
 	transition: transform 0.3s linear;
 
 	&:hover,
@@ -20,9 +19,9 @@
 	}
 
 	.item-count {
-		position: absolute;
-		font-size: 10px;
+		font-size: 12px;
 		font-weight: bold;
-		bottom: 12px;
+		position: absolute;
+		top: 17px;
 	}
 }

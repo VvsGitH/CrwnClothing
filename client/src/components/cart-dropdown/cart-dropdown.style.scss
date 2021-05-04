@@ -12,6 +12,10 @@
 	z-index: 5;
 
 	.cart-items {
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+
 		height: 240px;
 		display: flex;
 		flex-direction: column;

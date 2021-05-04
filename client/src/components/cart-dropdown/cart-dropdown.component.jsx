@@ -39,8 +39,8 @@ const CartDropdown = ({ cartItems, toggleCart, isLoading, dbError }) => {
 	};
 
 	return (
-		<div className='cart-dropdown'>
-			<div className='cart-items'>{renderCart()}</div>
+		<aside className='cart-dropdown'>
+			<ul className='cart-items'>{renderCart()}</ul>
 			<CustomButton
 				onClick={() => {
 					history.push('/checkout');
@@ -48,7 +48,7 @@ const CartDropdown = ({ cartItems, toggleCart, isLoading, dbError }) => {
 				}}>
 				GO TO CHECKOUT
 			</CustomButton>
-		</div>
+		</aside>
 	);
 };
 

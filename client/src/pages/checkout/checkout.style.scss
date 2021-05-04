@@ -9,37 +9,51 @@
 		width: 80%;
 	}
 
+	article {
+		min-width: 100%;
+	}
+
 	.checkout-header {
 		width: 100%;
 		padding: 10px 0;
-		display: flex;
-		justify-content: space-between;
 		border-bottom: 1px solid darkgrey;
+		display: grid;
+		grid-template-columns: repeat(5, 1fr);
 
-		.header-block {
+		span {
 			text-transform: capitalize;
-			width: 23%;
+			margin: 0 auto;
+
+			&:first-child {
+				margin: 0 auto 0 0;
+			}
 
 			&:last-child {
-				width: 8%;
+				margin: 0 0 0 auto;
 			}
 		}
 	}
 
 	.total {
 		margin-top: 30px;
-		margin-left: auto;
+		text-align: right;
 		font-size: 36px;
 	}
 
-	.test-warning {
-		text-align: center;
-		margin-top: 40px;
-		font-size: 24px;
-		color: rgb(194, 2, 2);
-	}
+	.pay-section {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
 
-	button {
-		margin-left: auto;
+		.test-warning {
+			text-align: center;
+			margin-top: 40px;
+			font-size: 24px;
+			color: rgb(194, 2, 2);
+		}
+
+		button {
+			align-self: flex-end;
+		}
 	}
 }

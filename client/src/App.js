@@ -28,7 +28,7 @@ const App = ({ currentUser, checkUserSession }) => {
 	}, [checkUserSession]);
 
 	return (
-		<div className='App'>
+		<>
 			<Header />
 			<Popup />
 			<ErrorBoundary>
@@ -53,7 +53,7 @@ const App = ({ currentUser, checkUserSession }) => {
 					</Switch>
 				</Suspense>
 			</ErrorBoundary>
-		</div>
+		</>
 	);
 };
 

@@ -1,6 +1,6 @@
 .menu-item {
 	min-width: 30%;
-	height: 240px;
+	height: 300px;
 	// Faccio prendere ad ogni elemento tutto lo spazio disponibile. Questa proprietà si riferisce al flexbox 'directory'
 	flex: 1 1 auto;
 	// Utilizzo un flexbox anche per menu-item solo come metodo comodo per centrare l'elemento content all'interno di esso
@@ -17,7 +17,7 @@
 
 	// Se l'elemento con classe 'menu-item' contiene anche la classe 'large' imposto un'altezza superiore
 	&.large {
-		height: 380px;
+		height: 400px;
 	}
 
 	&:hover,

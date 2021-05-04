@@ -7,11 +7,11 @@ import './collections-overview.style.scss';
 import CollectionPreview from '../../components/collection-preview/collection-preview.component';
 
 const CollectionsOverview = ({ collections }) => (
-	<div className='collections-overview'>
+	<main className='collections-overview'>
 		{collections.map(({ id, ...otherProps }) => (
 			<CollectionPreview key={id} {...otherProps} />
 		))}
-	</div>
+	</main>
 );
 
 const mapStateToProps = state => ({

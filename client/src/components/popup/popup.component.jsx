@@ -58,18 +58,16 @@ const Popup = () => {
 	const popupTitle = isSuccess ? 'Success!' : 'Ooops!';
 
 	const renderPopup = style => (
-		<animated.div className={`popup ${popupClass}`} style={style}>
-			<div className='popup-flex'>
-				<div className='popup-header'>
-					<div className='popup-icon'>{iconContent}</div>
-					<h2 className='popup-title'>{popupTitle}</h2>
-				</div>
-				<p className='popup-message'>{message}</p>
-				<button className='popup-btn' ref={btnRef}>
-					OK
-				</button>
-			</div>
-		</animated.div>
+		<animated.aside className={`popup ${popupClass}`} style={style}>
+			<header className='popup-header'>
+				<span className='popup-icon'>{iconContent}</span>
+				<h2 className='popup-title'>{popupTitle}</h2>
+			</header>
+			<p className='popup-message'>{message}</p>
+			<button className='popup-btn' ref={btnRef}>
+				OK
+			</button>
+		</animated.aside>
 	);
 
 	return transition((style, item) => (item ? renderPopup(style) : null));

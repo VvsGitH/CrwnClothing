@@ -12,7 +12,7 @@ import CartIcon from '../cart-icon/cart-icon.component';
 import CartDropdown from '../cart-dropdown/cart-dropdown.component';
 
 const Header = ({ currentUser, isCartHidden, signOutStart }) => (
-	<div className='header'>
+	<header className='header'>
 		<Link className='logo-container' to='/'>
 			<Logo />
 		</Link>
@@ -24,14 +24,9 @@ const Header = ({ currentUser, isCartHidden, signOutStart }) => (
 				CONTACT
 			</Link>
 			{currentUser ? (
-				<div
-					className='option'
-					role='button'
-					tabIndex='0'
-					onClick={signOutStart}
-					onKeyUp={e => e.code === 'Enter' && signOutStart()}>
+				<button className='option' onClick={signOutStart}>
 					SIGN OUT
-				</div>
+				</button>
 			) : (
 				<Link className='option' to='/signin'>
 					SIGN IN
@@ -40,7 +35,7 @@ const Header = ({ currentUser, isCartHidden, signOutStart }) => (
 			<CartIcon />
 		</nav>
 		{isCartHidden ? null : <CartDropdown />}
-	</div>
+	</header>
 );
 
 const mapStateToProps = state => ({

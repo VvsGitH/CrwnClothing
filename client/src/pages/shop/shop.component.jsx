@@ -18,7 +18,7 @@ const ShopPage = ({ match, fetchCollections }) => {
 	}, [fetchCollections]);
 
 	return (
-		<div className='shop-page'>
+		<>
 			<Route
 				exact
 				path={`${match.path}`}
@@ -29,7 +29,7 @@ const ShopPage = ({ match, fetchCollections }) => {
 				path={`${match.path}/:collectionId`}
 				component={CollectionContainer}
 			/>
-		</div>
+		</>
 	);
 };
 

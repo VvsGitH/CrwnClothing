@@ -33,7 +33,7 @@ const SignIn = ({ emailSignInStart, googleSignInStart }) => {
 	};
 
 	return (
-		<div className='sign-in'>
+		<section className='sign-in'>
 			<h2>I already have an account</h2>
 			<span>Sign in with your email and password</span>
 			<form onSubmit={handleSubmit}>
@@ -65,7 +65,7 @@ const SignIn = ({ emailSignInStart, googleSignInStart }) => {
 					</CustomButton>
 				</div>
 			</form>
-		</div>
+		</section>
 	);
 };
 

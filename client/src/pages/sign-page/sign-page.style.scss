@@ -1,8 +1,9 @@
 .sign-page {
 	width: 850px;
+	margin: 0 auto;
+	padding-top: 50px;
 	display: flex;
 	justify-content: space-between;
-	margin: 30px auto;
 
 	@media screen and (max-width: 920px) {
 		width: 100%;

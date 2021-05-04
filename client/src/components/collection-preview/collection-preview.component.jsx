@@ -6,18 +6,18 @@ import './collection-preview.style.scss';
 import CollectionItem from '../collection-item/collection-item.component';
 
 const CollectionPreview = ({ title, items, routeName, match }) => (
-	<div className='collection-preview'>
+	<section className='collection-preview'>
 		<Link className='title' to={`${match.url}/${routeName}`}>
 			{title.toUpperCase()}
 		</Link>
-		<div className='preview'>
+		<div className='preview' role='grid'>
 			{items
 				.filter((_, idx) => idx < 4)
 				.map(item => (
 					<CollectionItem key={item.id} item={item} />
 				))}
 		</div>
-	</div>
+	</section>
 );
 
 export default withRouter(CollectionPreview);

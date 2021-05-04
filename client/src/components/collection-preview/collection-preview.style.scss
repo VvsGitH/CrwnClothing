@@ -2,7 +2,7 @@
 	display: flex;
 	align-items: center;
 	flex-direction: column;
-	margin-bottom: 30px;
+	margin-bottom: 20px;
 
 	@media screen and (max-width: 800px) {
 		align-items: center;
@@ -11,7 +11,7 @@
 	.title {
 		font-size: 28px;
 		font-weight: 700;
-		margin-bottom: 25px;
+		margin: 0 auto 25px;
 		transition: transform 0.3s linear;
 		cursor: pointer;
 
@@ -23,14 +23,13 @@
 	}
 
 	.preview {
-		display: flex;
-		justify-content: space-between;
 		width: 90%;
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr 1fr;
+		column-gap: 3%;
 
 		@media screen and (max-width: 800px) {
-			display: grid;
 			grid-template-columns: 1fr 1fr;
-			gap: 15px;
 		}
 	}
 }

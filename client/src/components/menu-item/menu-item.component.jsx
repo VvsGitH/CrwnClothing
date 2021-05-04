@@ -18,6 +18,7 @@ const MenuItem = ({ title, imageUrl, size, linkUrl, history, match }) => (
 		onKeyUp={e => e.code === 'Enter' && history.push(`${match.url}${linkUrl}`)}>
 		<div
 			className='background-image'
+			role='img'
 			style={{ backgroundImage: `url(${imageUrl})` }}
 		/>
 		<div className='content'>

@@ -3,7 +3,7 @@ import React from 'react';
 import './error-page.style.scss';
 
 const ErrorPage = ({ errorImage, errorMsg, errorName, errorInfo }) => (
-	<div className='error-page'>
+	<main className='error-page'>
 		<img className='error-image' src={errorImage} alt='error' />
 		<h2 className='error-msg'>{errorMsg}</h2>
 		{(errorName || errorInfo) && (
@@ -13,7 +13,7 @@ const ErrorPage = ({ errorImage, errorMsg, errorName, errorInfo }) => (
 				{errorInfo && <span>{errorInfo}</span>}
 			</details>
 		)}
-	</div>
+	</main>
 );
 
 ErrorPage.defaultProps = {

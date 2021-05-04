@@ -25,10 +25,8 @@ const CheckoutItem = ({ cartItem, clearItem, addItem, removeItem }) => {
 	};
 
 	return (
-		<div className='checkout-item'>
-			<div className='image-container'>
-				<img src={imageUrl} alt='item' />
-			</div>
+		<section className='checkout-item'>
+			<img src={imageUrl} alt='item' />
 			<span className='name'>{name}</span>
 			<span
 				className='quantity'
@@ -45,16 +43,11 @@ const CheckoutItem = ({ cartItem, clearItem, addItem, removeItem }) => {
 					&#10095;
 				</div>
 			</span>
-			<span className='price'>€{price * quantity}</span>
-			<div
-				className='remove-button'
-				role='button'
-				tabIndex='0'
-				onClick={() => clearItem(cartItem)}
-				onKeyUp={e => e.code === 'Enter' && clearItem(cartItem)}>
+			<span className='price'>{`€${price * quantity}`}</span>
+			<button className='remove-button' onClick={() => clearItem(cartItem)}>
 				&#10005;
-			</div>
-		</div>
+			</button>
+		</section>
 	);
 };
 

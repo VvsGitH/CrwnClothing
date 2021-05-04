@@ -13,12 +13,10 @@
 	left: calc(50% - 22ch);
 	z-index: 100;
 
-	.popup-flex {
-		padding: 0.9rem 1rem;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-	}
+	padding: 0.9rem 1rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 
 	.popup-header {
 		width: 100%;

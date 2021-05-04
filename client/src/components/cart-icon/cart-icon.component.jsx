@@ -9,15 +9,10 @@ import './cart-icon.style.scss';
 import ShoppingIcon from '../../assets/shopping-bag.svg';
 
 const CartIcon = ({ toggleCartHidden, itemCount }) => (
-	<div
-		className='cart-icon'
-		role='button'
-		tabIndex='0'
-		onClick={toggleCartHidden}
-		onKeyUp={e => e.code === 'Enter' && toggleCartHidden()}>
+	<button className='cart-icon' onClick={toggleCartHidden}>
 		<img src={ShoppingIcon} alt='Cart Icon' className='shopping-icon' />
 		<span className='item-count'>{itemCount}</span>
-	</div>
+	</button>
 );
 
 // Tutte le funzioni che prendono lo stato nello Store e ne estraggono una piccola porzione sono dette selectors.

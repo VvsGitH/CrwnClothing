@@ -12,14 +12,15 @@ const CollectionItem = ({ item, addItem }) => {
 		<div className='collection-item' role='gridcell' tabIndex='0'>
 			<div
 				className='image'
+				role='img'
 				style={{
 					backgroundImage: `url(${imageUrl})`,
 				}}
 			/>
-			<div className='collection-footer'>
+			<figcaption className='collection-footer'>
 				<span className='name'>{name}</span>
 				<span className='price'>{`€${price}`}</span>
-			</div>
+			</figcaption>
 			<CustomButton inverted onClick={() => addItem(item)}>
 				Add to cart
 			</CustomButton>
